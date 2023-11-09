@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Author: J.A Lorenzo,
+    web que recopila las medidas guardadas">
+    <link rel="icon" type="image/x-icon" th:href="@{favicon.jpg}"/>
+
+    <title th:text="${title}">Título por Defecto</title>
+    <style>
+        body, html {
+            background-color: #ebecf0;
+        }
+        body, p, input, select, textarea, button {
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: -0.2px;
+            font-size: 16px;
+        }
+        div, p {
+            color: #595959;
+            text-shadow: 1px 1px 1px #fff;
+        }
+        h1 {
+            text-align: center;
+            color: #595959;
+            margin: 0;
+        }
+        form {
+            width: 320px;
+            margin: 0 auto;
+        }
+        .segment {
+            text-align: center;
+        }
+        section {
+            margin: 0 auto;
+        }
+        main {
+            display: flex;
+
+        }
+        button, input {
+            border: 0;
+            outline: 0;
+            font-size: 16px;
+            border-radius: 320px;
+            padding: 16px;
+            background-color: #ebecf0;
+            text-shadow: 1px 1px 0 #fff;
+        }
+        label {
+            display: block;
+            margin-bottom: 24px;
+            width: 100%;
+        }
+        input {
+            margin-right: 8px;
+            box-shadow: inset 2px 2px 5px #babecc, inset -5px -5px 10px #fff;
+            width: 100%;
+            box-sizing: border-box;
+            transition: all 0.2s ease-in-out;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+        input:focus {
+            box-shadow: inset 1px 1px 2px #babecc, inset -1px -1px 2px #fff;
+        }
+        button {
+            color: #61677c;
+            font-weight: bold;
+            box-shadow: -5px -5px 20px #fff, 5px 5px 20px #babecc;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        button:hover {
+            box-shadow: -2px -2px 5px #fff, 2px 2px 5px #babecc;
+        }
+        button:active {
+            box-shadow: inset 1px 1px 2px #babecc, inset -1px -1px 2px #fff;
+        }
+        button .icon {
+            margin-right: 8px;
+        }
+        button.unit {
+            border-radius: 8px;
+            line-height: 0;
+            width: 48px;
+            height: 48px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 8px;
+            font-size: 19.2px;
+        }
+        button.unit .icon {
+            margin-right: 0;
+        }
+        button  {
+            display: block;
+            width: 100%;
+            color: #3fae00;
+        }
+        .input-group label {
+            margin: 0;
+            flex: 1;
+        }
+        footer { text-align: right; margin-right: 1rem }
+    </style>
+</head>
+<body>
+<header>
+    <h1 th:text="${title}">Mi Aplicación</h1>
+</header>
+<nav>
+    <ul>
+        <li><a href="/">Inicio</a></li>
+    </ul>
+</nav>
+<main>
+    <form th:action="@{'/' + ${userId}}" th:object="${medidasForm}" method="post">
+        <div class="segment">
+            <h1>Nuevo registro</h1>
+        </div>
+        <label>
+            <input type="date" name="registrationDate">
+        </label>
+        <label>
+            <input type="number"
+                   step="0.001"
+                   pattern="\d+(\.\d{3})?"
+                   name="weight"
+                   placeholder="Peso" required
+                   aria-label="Peso">
+                   <!-- th:if="${weight != null}" th:text="${weight}"-->
+        </label>
+        <label>
+            <input type="number"
+                   step="0.01"
+                   pattern="\d+(\.\d{2})?"
+                   name="chest"
+                   placeholder="Pecho">
+        </label>
+        <label>
+            <input type="number"
+                   step="0.01"
+                   pattern="\d+(\.\d{2})?"
+                   name="waist"
+                   placeholder="Cintura" required>
+        </label>
+        <label>
+            <input type="number"
+                   step="0.01"
+                   pattern="\d+(\.\d{2})?"
+                   name="abdomen"
+                   placeholder="Abdomen">
+        </label>
+        <label>
+            <input type="number"
+                   step="0.01"
+                   pattern="\d+(\.\d{2})?"
+                   name="hips"
+                   placeholder="Cadera" required>
+        </label>
+        <label>
+            <input type="number"
+                   step="0.01"
+                   pattern="\d+(\.\d{2})?"
+                   name="buttocks"
+                   placeholder="Culo">
+        </label>
+        <button type="submit"><i class="icon ion-md-lock"></i> Guardar</button>
+    </form>
+
+    <section>
+        <div class="segment">
+            <table>
+                <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Peso (kg)</th>
+                    <th>Pecho (cm)</th>
+                    <th>Cintura (cm)</th>
+                    <th>Abdomen (cm)</th>
+                    <th>Cadera (cm)</th>
+                    <th>Culo (cm)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="medida : ${medidas}">
+                    <td th:text="${medida.registrationDate}"></td>
+                    <td th:text="${medida.pesoKg}"></td>
+                    <td th:text="${medida.pechoCm}"></td>
+                    <td th:text="${medida.cinturaCm}"></td>
+                    <td th:text="${medida.abdomenCm}"></td>
+                    <td th:text="${medida.caderaCm}"></td>
+                    <td th:text="${medida.culoCm}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+<footer>
+    <p>&copy; 2023 <span th:text="${title}"> Mi Aplicación</span> - By jotxee</p>
+</footer>
+</body>
+</html>

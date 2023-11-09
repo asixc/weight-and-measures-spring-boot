@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://${DB_HOST_NAME:127.0.0.1}:${DB_PORT:3306}/${DB_NAME:weight-measures}
+    username: ${USERNAME_DB:weight-and-measures}
+    password: ${PASSWORD_DB:weight-and-measures-pASSw0RD}
+  jpa:
+    hibernate:
+      ddl-auto: update

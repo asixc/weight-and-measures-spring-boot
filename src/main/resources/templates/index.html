@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Author: J.A Lorenzo,
+    web que recopila las medidas guardadas">
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}"/>
+    <title th:text="${title}">Título por Defecto</title>
+    <style>
+        body, html {
+            background-color: #ebecf0;
+            min-height: 100vh;
+            margin: 0;
+        }
+        body, p, input, select, textarea, button {
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: -0.2px;
+            font-size: 16px;
+        }
+        header {
+            margin-bottom: 2rem;
+        }
+        div, p {
+            color: #595959;
+            text-shadow: 1px 1px 1px #fff;
+        }
+        h1 {
+            text-align: center;
+            color: #595959;
+            margin: 0;
+        }
+        form {
+            width: 320px;
+            margin: 0 auto;
+        }
+        section {
+            margin: 0 auto;
+        }
+        main {
+            display: flex;
+            margin: 0 auto;
+            justify-content: center;
+        }
+        button, input {
+            border: 0;
+            outline: 0;
+            font-size: 16px;
+            border-radius: 320px;
+            padding: 16px;
+            background-color: #ebecf0;
+            text-shadow: 1px 1px 0 #fff;
+        }
+        button {
+            color: #61677c;
+            font-weight: bold;
+            box-shadow: -5px -5px 20px #fff, 5px 5px 20px #babecc;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        button:hover {
+            box-shadow: -2px -2px 5px #fff, 2px 2px 5px #babecc;
+        }
+        button:active {
+            box-shadow: inset 1px 1px 2px #babecc, inset -1px -1px 2px #fff;
+        }
+        button .icon {
+            margin-right: 8px;
+        }
+        button.unit {
+            border-radius: 8px;
+            line-height: 0;
+            width: 48px;
+            height: 48px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 8px;
+            font-size: 19.2px;
+        }
+        button.unit .icon {
+            margin-right: 0;
+        }
+        button  {
+            display: block;
+            width: 100%;
+            color: #3fae00;
+        }
+        a {
+            text-decoration: none;
+        }
+        ul {
+            list-style-type: none;
+        }
+        footer {
+            margin-right: 1rem;
+            position: absolute;
+            bottom: 0px;
+            right: 0px
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1 th:text="${title}">Mi Aplicación</h1>
+</header>
+<main>
+
+
+    <ul th:each="entries:${users}">
+        <a th:href="@{|/${entries.userId}|}">
+            <button type="button">
+                <li th:text="${entries.name}" id="menu-entries"></li>
+            </button>
+        </a>
+    </ul>
+</main>
+<footer>
+    <p>&copy; 2023 <span th:text="${title}"> Mi Aplicación</span> - By jotxee</p>
+</footer>
+</body>
+</html>
