@@ -2,13 +2,9 @@ package dev.jotxee.weightandmeasures.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
-import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
-
-import java.util.Collections;
 
 import static jakarta.servlet.DispatcherType.ERROR;
 import static jakarta.servlet.DispatcherType.FORWARD;
@@ -26,28 +22,11 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(authorize -> authorize
                         .dispatcherTypeMatchers(FORWARD, ERROR).permitAll()
-                        .requestMatchers("/static/**", "/signup", "/**").permitAll()
+                        .requestMatchers("/api/v1.0/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().denyAll()
-                );
+                ).csrf(AbstractHttpConfigurer::disable);
 
         return http.build();
     }
-    @Bean
-    public SimpleUrlHandlerMapping customFaviconHandlerMapping() {
-        SimpleUrlHandlerMapping mapping = new SimpleUrlHandlerMapping();
-        mapping.setOrder(Integer.MIN_VALUE);
-        mapping.setUrlMap(Collections.singletonMap(
-                "/static/favicon.jpg", faviconRequestHandler()));
-        return mapping;
-    }
-
-    @Bean
-    protected ResourceHttpRequestHandler faviconRequestHandler() {
-        ResourceHttpRequestHandler requestHandler
-                = new ResourceHttpRequestHandler();
-        requestHandler.setLocations(Collections.singletonList(new ClassPathResource("/")));
-        return requestHandler;
-    }
-
 }

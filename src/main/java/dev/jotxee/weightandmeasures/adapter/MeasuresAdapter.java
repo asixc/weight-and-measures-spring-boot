@@ -1,13 +1,13 @@
 package dev.jotxee.weightandmeasures.adapter;
 
-import dev.jotxee.weightandmeasures.controller.dto.MedidasDto;
-import dev.jotxee.weightandmeasures.respository.entity.MedidasEntity;
+import dev.jotxee.weightandmeasures.controller.dto.MeasuresDto;
+import dev.jotxee.weightandmeasures.respository.entity.MeasuresEntity;
 
 import java.time.format.DateTimeFormatter;
 
-public interface MedidasAdapter {
-    static MedidasDto from (MedidasEntity entity) {
-        return new MedidasDto(
+public interface MeasuresAdapter {
+    static MeasuresDto from (MeasuresEntity entity) {
+        return new MeasuresDto(
                 entity.getMeasurementsKey().getUserId(),
                 entity.getMeasurementsKey().getRegistrationDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
                 // entity.getUserId(),

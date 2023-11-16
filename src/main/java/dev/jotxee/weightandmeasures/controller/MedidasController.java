@@ -1,7 +1,7 @@
 package dev.jotxee.weightandmeasures.controller;
 
-import dev.jotxee.weightandmeasures.controller.dto.MedidasForm;
-import dev.jotxee.weightandmeasures.service.MedidasService;
+import dev.jotxee.weightandmeasures.controller.dto.Measures;
+import dev.jotxee.weightandmeasures.service.MeasuresService;
 import dev.jotxee.weightandmeasures.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,15 +19,15 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MedidasController {
 
-    private final MedidasService medidasService;
+    private final MeasuresService measuresService;
     private final UserService userService;
 
 
     @PostMapping("/{userId}")
-    public String guardar(MedidasForm medidasForm, @PathVariable("userId") int userId,
+    public String guardar(Measures medidasForm, @PathVariable("userId") int userId,
                           RedirectAttributes redirectAttributes) {
         log.debug("Guarda medidas de:{} [{}]", userId, medidasForm);
-        medidasService.guardarMedidas(medidasForm, userId);
+        measuresService.save(medidasForm, userId);
         redirectAttributes.addFlashAttribute("mensaje", "Solicitud procesada correctamente");
         return "redirect:/" + userId;
     }
@@ -37,7 +37,7 @@ public class MedidasController {
     public String getAllMedidasByUsuario(@PathVariable("userId") int userId, Model model) {
         model.addAllAttributes(
                 Map.of(
-                        "medidas", medidasService.getAllMedidasByUsuario(userId),
+                        "medidas", measuresService.getAllMeasuresByUser(userId),
                         "title", "Toma de medidas",
                         "userId", userId
                 )

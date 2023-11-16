@@ -1,11 +1,17 @@
 package dev.jotxee.weightandmeasures.controller.dto;
 
-public record MedidasForm(
+import jakarta.validation.constraints.NotNull;
+
+public record Measures(
         String registrationDate,
+        @NotNull(message="Weight is mandatory")
         Double weight,
+        @NotNull(message="Chest is mandatory")
         Double chest,
+        @NotNull(message="Waist is mandatory")
         Double waist,
         Double abdomen,
+        @NotNull(message="Hips is mandatory")
         Double hips,
         Double buttocks
 ) { }

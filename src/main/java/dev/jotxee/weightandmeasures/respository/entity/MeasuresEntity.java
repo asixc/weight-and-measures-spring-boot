@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Table(name = "measurements")
 @NoArgsConstructor
 @AllArgsConstructor
-public class MedidasEntity implements Serializable {
+public class MeasuresEntity implements Serializable {
     @EmbeddedId
     private MeasurementsKey measurementsKey;
     @Column(name = "last_updated")
